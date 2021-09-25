@@ -36,7 +36,7 @@ class apiRouteProtected extends BaseMiddleware
 
         } catch (JWTException $e) {
 
-            return response()->json(['error' => 'Token não informado na request'], 404);
+            return response()->json(['error' => 'Token não encontrado na requisição, por favor verifique os dados enviados'], 404);
         }
 
         return $next($request);
