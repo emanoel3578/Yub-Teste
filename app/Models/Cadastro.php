@@ -14,6 +14,8 @@ class Cadastro extends Model
      * 
      * @var string[]
      */
+    protected $primaryKey = 'id';
+    protected $table = 'cadastros';
     protected $fillable=[
         'dono',
         'nome',
