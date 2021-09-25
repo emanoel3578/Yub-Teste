@@ -19,8 +19,13 @@ class CadastroController extends Controller
         if(!$emailDono = Auth::user()->email) {
             return response()->json(['error' => 'Não foi possivel achar o email do usuario autenticado']);
         }
-
-
+        
+        $novoCadastro = Cadastro::create([
+            'dono' => $emailDono,
+            'nome' => $request -> nome,
+            'marca' => $request -> marca,
+            'quantidade' => $request -> quantidade,
+        ]);
 
         return response()->json([
             'Status' => 'Sucesso', 
@@ -29,6 +34,6 @@ class CadastroController extends Controller
             'Nome do produto' => $request->nome,
             'Marca do produto' => $request->marca,
             'Quantidade do produto' => $request->quantidade,
-        ]);
+        ], 201);
     }
 }

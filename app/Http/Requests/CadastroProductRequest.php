@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class CadastroProductRequest extends FormRequest
+class CadastroProductRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class CadastroProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome' => 'required|string|max:100|min:4',
+            'nome' => 'required|string|unique:cadastros|max:100|min:4',
             'marca' => 'required|string|max:100|min:4',
             'quantidade' => 'required|integer|min:1'
         ];
@@ -39,6 +39,7 @@ class CadastroProductRequest extends FormRequest
     {
         return [
             'nome.required' => "O campo 'nome' está vazio, por favor insira um valor válido",
+            'nome.unique' => "O campo 'nome' já está cadastrado, por favor insira um valor válido",
             'nome.max' => "O campo 'nome' passou do limite de 100 characters",
             'nome.min' => "O campo 'nome' precisa de no minimo 4 characters",
             'marca.required' => "O campo 'marca' está vazio, por favor insira um valor válido",
