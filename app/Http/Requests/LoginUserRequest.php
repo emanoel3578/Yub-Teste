@@ -26,7 +26,7 @@ class StoreUserRequest extends BaseFormRequest
     {
         return [
             'email' => 'required|email|max:50',
-            'senha' => 'required|max:50|min:6',
+            'password' => 'required|max:50|min:6',
         ];
     }
 
@@ -40,9 +40,9 @@ class StoreUserRequest extends BaseFormRequest
         return [
             'email.required' => 'Email é obrigatório!',
             'email.max' => 'A razão social tem um limite de 50 characters, por favor digite novamente',
-            'senha.required' => 'Senha é obrigatório!',
-            'senha.max' => 'A senha tem um limite de 50 characters, por favor digite novamente uma nova senha',
-            'senha.min' => 'A senha precisa ter no minimo 6 characters'
+            'password.required' => 'Senha é obrigatório!',
+            'password.max' => 'A senha tem um limite de 50 characters, por favor digite novamente uma nova senha',
+            'password.min' => 'A senha precisa ter no minimo 6 characters'
         ];
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\LoginUserRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -17,9 +18,8 @@ class JWTAuthController extends Controller
      */
     public function __construct() 
     {
-        $this->middleware("auth:api", ['expect' => ['login', 'registrar']]);
+        // $this->middleware("auth:api", ['expect' => ['login', 'registrar']]);
     }
-
 
     /**
      * Registrar novo usuario
@@ -31,7 +31,7 @@ class JWTAuthController extends Controller
         User::create([
             'email' => $request->email,
             'razaosocial' => $request->razaosocial,
-            'senha' => Hash::make($request->senha)
+            'password' => Hash::make($request->password)
         ]);
 
         return response()->json(['message' => "Cadastro efetuado com sucesso"], 201);
@@ -42,18 +42,39 @@ class JWTAuthController extends Controller
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(LoginUserRequest $request)
+    public function login(Request $request)
     {
-        $validated = $request->validated();
 
-        if ($validated->fails()) {
-            return response()->json($validated->errors(), 422);
-        }
+        $credentials = $request->only(['email', 'password']);
+        $token = Auth::attempt($credentials);
+        return response()->json($token);
 
-        if (! $token = Auth::attempt($validated->validated())) {
-            return response()->json(['error' => 'Não autorizado'], 401);
-        }
+        // if (! $token = Auth::attempt($credentials)) {
+        //     return response()->json(['error' => 'Não autorizado'], 401);
+        // }
 
-        return $this->createNewToken($token);
+        // return $this->respondWithToken($token);
+
+        // $validated = $request->validated();
+
+        // if ($validated->fails()) {
+        //     return response()->json($validated->errors(), 422);
+        // }
+
+        // if (! $token = Auth::attempt($validated->validated())) {
+        //     return response()->json(['error' => 'Não autorizado'], 401);
+        // }
+
+        // return $this->createNewToken($token);
+    }
+
+    /**
+     * Mostar informções do usuario autenticado
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function profile() 
+    {
+        return response()->json(Auth::user());
     }
 }

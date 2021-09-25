@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\JWTAuthController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RegistarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +15,6 @@ use App\Http\Controllers\RegistarController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-Route::post("/teste", [RegistarController::class, "store"]);
+Route::post("registrar", [JWTAuthController::class, "registrar"]);
+Route::post("login", [JWTAuthController::class, "login"]);
+// Route::get('/profile', [JWTAuthController::class, "profile"]);
