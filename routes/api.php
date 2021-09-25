@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\JWTAuthController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RegistarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +15,13 @@ use App\Http\Controllers\RegistarController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+// Unprotected Routes - Login and Registration
+Route::post("registrar", [JWTAuthController::class, "registrar"]);
+Route::post("login", [JWTAuthController::class, "login"]);
 
-Route::post("/teste", [RegistarController::class, "store"]);
+// Protected Route by JWT Api Middleware
+Route::group(['middleware' =>  ['apiJwt']], function(){
+    Route::get('dados', [JWTAuthController::class, "dadosUser"]);
+});
+
+// Route::get('auth', [JWTAuthController::class, "getAuthenticatedUser"]);
