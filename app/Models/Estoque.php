@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Cadastro;
+use App\Models\User;
 
 class Estoque extends Model
 {
@@ -28,4 +30,20 @@ class Estoque extends Model
 
     const CREATED_AT = 'criado_em';
     const UPDATED_AT = 'atualizado_em';
+
+    /**
+     * Get the post that owns the comment.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the post that owns the comment.
+     */
+    public function cadastro()
+    {
+        return $this->belongsTo(Cadastro::class);
+    }
 }

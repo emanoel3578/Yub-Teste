@@ -40,10 +40,10 @@ class EstoqueRequest extends BaseFormRequest
             'tipo.required' => "O campo 'tipo' está vazio, por favor insira um valor válido",
             'tipo.regex' => "O valor inserido no campo tipo, precisa ser 'Entrada' ou 'Saida' !",
             'tipo.min' => "O campo 'tipo' precisa de pelo menos 5 characteres",
-            'tipo.min' => "O campo 'tipo' aceita ao máximo 7 characteres",
+            'tipo.max' => "O campo 'tipo' aceita ao máximo 7 characteres",
             'quantidade.required' => "O campo 'quantidade' está vazio, por favor insira um valor válido",
             'quantidade.integer' => "O campo 'quantidade' precisa ser um numero válido",
-            'quantidade.min' => "O campo 'quantidade' precisa de pelo menos 5 characteres"
+            'quantidade.min' => "O campo 'quantidade' precisa de ser um numero válido e maior que 1"
         ];
     }
 
@@ -56,7 +56,7 @@ class EstoqueRequest extends BaseFormRequest
     {
         return [
             'tipo' => 'trim|capitalize|escape|strip_tags',
-            'quantidade' => 'trim|cast:integer|escape|strip_tags'
+            'quantidade' => 'cast:integer|escape|strip_tags'
         ];
     }
 }
