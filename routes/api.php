@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CadastroController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\JWTAuthController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,7 @@ Route::post("login", [JWTAuthController::class, "login"]);
 // Protected Route by JWT Api Middleware
 Route::group(['middleware' =>  ['apiJwt']], function(){
     Route::get('dados', [JWTAuthController::class, "dadosUser"]);
+    Route::post('novoproduto', [CadastroController::class, "store"]);
 });
 
 // Route::get('auth', [JWTAuthController::class, "getAuthenticatedUser"]);
