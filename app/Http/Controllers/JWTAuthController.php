@@ -51,39 +51,26 @@ class JWTAuthController extends Controller
 
         try {
             if (! $token = Auth::attempt($credentials)) {
+
                 return response()->json(['error' => 'Credenciais inválidas'], 401);
+
             }
         } catch (JWTException $e) {
+
             return response()->json(['error' => 'Não foi possivel verificar suas credenciais, por favor contate o suporte'], 400);
         }
 
-        return response()->json(['status'  => 'sucesso', 'token' => $token]);
+        $expiratedTime = Auth::factory()->getTTL() * 60;
+        return response()->json(['status'  => 'sucesso', 'token' => $token, 'expira em' => (string)$expiratedTime.'s']);
     }
 
     /**
-     * Autenticar o usuario com tratamento de exceção
+     * Retornar Todos os dados sobre o usuario logado no request
      * 
-     * @return \Illuminate\Http\JsonResponse
+     * return \Illuminate\Http\JsonResponse
      */
-    public function authUser()
+    public function dadosUser ()
     {
-        try {
-            if (! $user = JWTAuth::parseToken()->authenticate()) {
-                    return response()->json(['user_not_found'], 404);
-            }
-        } catch (TokenExpiredException $e) {
-
-            return response()->json(['error' => 'Token expirado']);
-
-        } catch (TokenInvalidException $e) {
-
-            return response()->json([ 'error' => 'Token Inválido']);
-
-        } catch (JWTException $e) {
-
-            return response()->json(['error' => 'Token não informado na request']);
-        }
-
-        return response()->json(compact('user'));
+        return response()->json(['Dados' => Auth::user()]);
     }
 }

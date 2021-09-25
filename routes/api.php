@@ -15,7 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Unprotected Routes - Login and Registration
 Route::post("registrar", [JWTAuthController::class, "registrar"]);
 Route::post("login", [JWTAuthController::class, "login"]);
-Route::get('profile', [JWTAuthController::class, "profile"]);
-Route::get('auth', [JWTAuthController::class, "getAuthenticatedUser"]);
+
+// Protected Route by JWT Api Middleware
+Route::group(['middleware' =>  ['apiJwt']], function(){
+    Route::get('dados', [JWTAuthController::class, "dadosUser"]);
+});
+
+// Route::get('auth', [JWTAuthController::class, "getAuthenticatedUser"]);
