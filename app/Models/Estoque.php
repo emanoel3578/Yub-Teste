@@ -15,7 +15,8 @@ class Estoque extends Model
      * @return string[]
      */
     protected $fillable=[
-        ''
+        'tipo',
+        'quantidade',
     ];
 
     /**

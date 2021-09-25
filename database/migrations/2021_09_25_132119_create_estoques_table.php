@@ -18,7 +18,8 @@ class CreateEstoquesTable extends Migration
             $table->string('cadastro_id');
             $table->string('tipo');
             $table->integer('quantidade');
-            $table->timestamps();
+            $table->timestampTz('criado_em');
+            $table->timestampTz('atulizado_em');
         });
     }
 
