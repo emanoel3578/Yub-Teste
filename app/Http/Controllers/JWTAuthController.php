@@ -7,6 +7,9 @@ use App\Http\Requests\LoginUserRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class JWTAuthController extends Controller
 {
@@ -58,12 +61,29 @@ class JWTAuthController extends Controller
     }
 
     /**
-     * Mostar informções do usuario autenticado
+     * Autenticar o usuario com tratamento de exceção
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function profile() 
+    public function authUser()
     {
-        return response()->json(Auth::user());
+        try {
+            if (! $user = JWTAuth::parseToken()->authenticate()) {
+                    return response()->json(['user_not_found'], 404);
+            }
+        } catch (TokenExpiredException $e) {
+
+            return response()->json(['error' => 'Token expirado']);
+
+        } catch (TokenInvalidException $e) {
+
+            return response()->json([ 'error' => 'Token Inválido']);
+
+        } catch (JWTException $e) {
+
+            return response()->json(['error' => 'Token não informado na request']);
+        }
+
+        return response()->json(compact('user'));
     }
 }

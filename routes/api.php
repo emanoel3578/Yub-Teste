@@ -18,3 +18,4 @@ use Illuminate\Support\Facades\Route;
 Route::post("registrar", [JWTAuthController::class, "registrar"]);
 Route::post("login", [JWTAuthController::class, "login"]);
 Route::get('profile', [JWTAuthController::class, "profile"]);
+Route::get('auth', [JWTAuthController::class, "getAuthenticatedUser"]);
