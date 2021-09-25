@@ -19,6 +19,10 @@ class Estoque extends Model
     protected $fillable=[
         'tipo',
         'quantidade',
+        'produto_id',
+        'dono',
+        'nomedaempresa',
+
     ];
 
     /**
@@ -26,24 +30,8 @@ class Estoque extends Model
      *
      * @var string
      */
-    protected $dateFormat = 'd/m/Y';
 
     const CREATED_AT = 'criado_em';
     const UPDATED_AT = 'atualizado_em';
 
-    /**
-     * Get the post that owns the comment.
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Get the post that owns the comment.
-     */
-    public function cadastro()
-    {
-        return $this->belongsTo(Cadastro::class);
-    }
 }

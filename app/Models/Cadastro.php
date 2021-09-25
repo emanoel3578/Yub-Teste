@@ -22,10 +22,4 @@ class Cadastro extends Model
     ];
 
 
-    /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'flight_id';
 }

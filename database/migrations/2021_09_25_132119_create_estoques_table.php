@@ -15,12 +15,13 @@ class CreateEstoquesTable extends Migration
     {
         Schema::create('estoques', function (Blueprint $table) {
             $table->id();
-            $table->string('cadastro_id');
+            $table->string('produto_id');
             $table->string('tipo');
             $table->string('dono');
+            $table->string('nomedaempresa');
             $table->integer('quantidade');
-            $table->timestampTz('criado_em');
-            $table->timestampTz('atulizado_em');
+            $table->dateTimeTz('criado_em');
+            $table->dateTimeTz('atualizado_em');
         });
     }
 
