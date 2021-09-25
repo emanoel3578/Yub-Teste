@@ -49,8 +49,9 @@ class EstoqueController extends Controller
             }
         }catch (Exception $e) {
             return response()->json([
-                "Status" => "Por favor verifique o seu Token, caso o problema persista gere um novo Token e altere os dados da requisição"
-            ]);
+                "Status" => "Error",
+                "Mensagem" => "Por favor verifique o seu Token, caso o problema persista gere um novo Token e altere os dados da requisição"
+            ], 404);
         }
     }
 }
