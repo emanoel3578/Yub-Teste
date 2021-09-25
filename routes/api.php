@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\CadastroController;
-use Illuminate\Http\Request;
 use App\Http\Controllers\JWTAuthController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\EstoqueController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +26,8 @@ Route::post("login", [JWTAuthController::class, "login"]);
 Route::group(['middleware' =>  ['apiJwt']], function(){
     Route::get('dados', [JWTAuthController::class, "dadosUser"]);
     Route::post('novoproduto', [CadastroController::class, "store"]);
+    Route::post('pesquisar', [SearchController::class, "search"]);
+    Route::post('estoque', [EstoqueController::class, "store"]);
 });
 
 // Route::get('auth', [JWTAuthController::class, "getAuthenticatedUser"]);

@@ -40,6 +40,7 @@ class LoginUserRequest extends BaseFormRequest
         return [
             'email.required' => 'Email é obrigatório!',
             'email.max' => 'A razão social tem um limite de 50 characters, por favor digite novamente',
+            'email' => 'O formato de email não é válido, por favor tente novamente',
             'password.required' => 'Senha é obrigatório!',
             'password.max' => 'A senha tem um limite de 50 characters, por favor digite novamente uma nova senha',
             'password.min' => 'A senha precisa ter no minimo 6 characters'
