@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\LoginUserRequest;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Stmt\TryCatch;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class JWTAuthController extends Controller
@@ -27,13 +29,24 @@ class JWTAuthController extends Controller
      */
     public function registrar(StoreUserRequest $request)
     {
-        User::create([
-            'email' => $request->email,
-            'razaosocial' => $request->razaosocial,
-            'password' => bcrypt($request->password)
-        ]);
+        try{
+
+            User::create([
+                'email' => $request->email,
+                'razaosocial' => $request->razaosocial,
+                'password' => bcrypt($request->password)
+            ],201);
+
+        }catch (Exception $e) {
+
+            return response()->json([
+                'Status' => 'Error',
+                'Mensagem' => 'Não foi possivel completar seu cadastro, por favor contate o suporte',
+            ], 500);
+        }
 
         return response()->json(['message' => "Cadastro efetuado com sucesso"], 201);
+
     }
 
     /**
@@ -58,7 +71,7 @@ class JWTAuthController extends Controller
         }
 
         $expiratedTime = Auth::factory()->getTTL() * 60;
-        return response()->json(['status'  => 'sucesso', 'token' => $token, 'expira em' => (string)$expiratedTime.'s']);
+        return response()->json(['status'  => 'sucesso', 'token' => $token, 'expira em' => (string)$expiratedTime.'s'], 200);
     }
 
     /**
@@ -68,6 +81,19 @@ class JWTAuthController extends Controller
      */
     public function dadosUser ()
     {
-        return response()->json(['Dados' => Auth::user()]);
+        try {
+
+            return response()->json([
+                'Status' => 'Sucesso',
+                'Dados' => Auth::user()
+            ], 200);
+
+        }catch (JWTException $e) {
+
+            return response()->json([
+                'Status' => 'Error',
+                'Mensagem' => 'Não foi possivel verificar suas credenciais, por favor contate o suporte'
+            ], 404);
+        }
     }
 }

@@ -24,8 +24,8 @@ class CadastroProductRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'nome' => 'required|string|unique:cadastros|max:100|min:4',
-            'marca' => 'required|string|max:100|min:4',
+            'nome' => 'required|string|unique:cadastros|max:100|min:2',
+            'marca' => 'required|string|max:100|min:2',
             'quantidade' => 'required|integer|min:1'
         ];
     }
