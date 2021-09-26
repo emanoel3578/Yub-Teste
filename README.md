@@ -1,4 +1,4 @@
-# 🖥️ Yub Delivrey API 🖥️
+# 🖥️ Yub Delivery API 🖥️
 <h3> Projeto desenvolvido para a conclusão do processo seletivo </h3>
 
 > ## Tecnologias usadas no desenvolvimento:
