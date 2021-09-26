@@ -7,6 +7,7 @@
   <li>🔵Postman - Testes na Api</li>
   <li>🤎IDE - Visual Studio Code</li>
   <li>💜WAMP - Servidor Apache Local</li>
+  <li>✅GIT Flow - Versionamento do projeto</li>
 </ul>
 
 > # Documentação API:
